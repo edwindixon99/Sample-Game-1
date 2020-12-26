@@ -6,19 +6,20 @@ public class move : MonoBehaviour
     public Rigidbody rb;
 
     public float forwardForce = 1000f;
-    public float sidewaysForce = 1000f;
-    public bool jump = false;
+    public float sidewaysForce = 100f;
+    public float jumpForce = 1f;
+    public bool onGround = true;
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey("space")) {
-            jump = true;
-        } else {
-            jump = false;
-        }
+    // void Update()
+    // {
+    //     if () {
+    //         jump = true;
+    //     } else {
+    //         jump = false;
+    //     }
 
-    }
+    // }
     void FixedUpdate()
     {
         
@@ -43,11 +44,19 @@ public class move : MonoBehaviour
 
             rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
-        if (jump) {
-            rb.AddForce(0, sidewaysForce * Time.deltaTime, 0);
+        if (Input.GetKey("space") && onGround) {
+            rb.AddForce(0, jumpForce * Time.deltaTime, 0, ForceMode.Impulse);
+            onGround = false;
         }
         if (rb.position.y < -1f) {
             FindObjectOfType<GameManager>().EndGame();
         }
+    }
+
+    private void onCollisionEnter(Collision collision) {
+        // if (collision.gameObject.name == "Ground") {
+        Debug.Log("landed!");
+        onGround = true;
+        // }
     }
 }
