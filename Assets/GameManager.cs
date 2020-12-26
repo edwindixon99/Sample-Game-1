@@ -4,12 +4,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     bool gameHasEnded = false;
-    public GameObject completeLevelUI;
+    // public GameObject completeLevelUI;
 
     public void CompleteLevel ()
     {
         Debug.Log("You Won!"); 
-        completeLevelUI.SetActive(true);
+        // completeLevelUI.SetActive(true);
     }
     public void EndGame ()
     {
