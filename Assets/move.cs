@@ -54,6 +54,7 @@ public class move : MonoBehaviour
         Debug.Log(GameObject.Find("Cube").transform.position);
     }
 
+    //When a moving cube collides with a obect it can jump again
     void OnCollisionEnter(Collision collision) { 
         // if (collision.gameObject.name == "Ground") {
         Debug.Log("landed!");
