@@ -51,7 +51,7 @@ public class move : MonoBehaviour
         if (rb.position.y < -1f) {
             FindObjectOfType<GameManager>().EndGame();
         }
-        Debug.Log(GameObject.Find("Cube").transform.position);
+        
     }
 
     //When a moving cube collides with a obect it can jump again
