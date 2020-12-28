@@ -51,9 +51,10 @@ public class move : MonoBehaviour
         if (rb.position.y < -1f) {
             FindObjectOfType<GameManager>().EndGame();
         }
+        Debug.Log(GameObject.Find("Cube").transform.position);
     }
 
-    private void onCollisionEnter(Collision collision) {
+    void OnCollisionEnter(Collision collision) { 
         // if (collision.gameObject.name == "Ground") {
         Debug.Log("landed!");
         onGround = true;
