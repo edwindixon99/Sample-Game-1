@@ -8,7 +8,10 @@ public class move : MonoBehaviour
     public float forwardForce = 1000f;
     public float sidewaysForce = 100f;
     public float jumpForce = 1f;
+    public float longJumpForce = 3f;
+    public float nlongJumpForce = 1f;
     public bool onGround = true;
+    public bool longJump;
 
     // Update is called once per frame
     // void Update()
@@ -45,6 +48,11 @@ public class move : MonoBehaviour
             rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
         if (Input.GetKey("space") && onGround) {
+            if (longJump) {
+                jumpForce = longJumpForce;
+            } else {
+                jumpForce = nlongJumpForce;
+            }
             rb.AddForce(0, jumpForce * Time.deltaTime, 0, ForceMode.Impulse);
             onGround = false;
         }
@@ -61,4 +69,6 @@ public class move : MonoBehaviour
         onGround = true;
         // }
     }
+
+    
 }
