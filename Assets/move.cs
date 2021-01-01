@@ -7,11 +7,14 @@ public class move : MonoBehaviour
 
     public float forwardForce = 1000f;
     public float sidewaysForce = 100f;
-    public float jumpForce = 1f;
-    public float longJumpForce = 3f;
-    public float nlongJumpForce = 1f;
+    public float jumpForce = 1000f;
+    public float longJumpForce = 3000f;
+    public float nlongJumpForce = 1000f;
     public bool onGround = true;
     public bool longJump;
+    public float zForce;
+    public float xForce;
+
 
     // Update is called once per frame
     // void Update()
@@ -27,25 +30,32 @@ public class move : MonoBehaviour
     {
         
         
+        zForce = 0;
+        xForce = 0;
 
+        
         if (Input.GetKey("w")) {
 
-            rb.AddForce(0, 0, forwardForce * Time.deltaTime, ForceMode.VelocityChange);
+            zForce = 1;
+            // rb.AddForce(0, 0, forwardForce * Time.deltaTime, ForceMode.VelocityChange);
         }
 
         if (Input.GetKey("s")) {
 
-            rb.AddForce(0, 0, -forwardForce * Time.deltaTime, ForceMode.VelocityChange);
+            zForce = -1;
+            // rb.AddForce(0, 0, -forwardForce * Time.deltaTime, ForceMode.VelocityChange);
         }
 
         if (Input.GetKey("a")) {
 
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+            xForce = -1;
+            // rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
         if (Input.GetKey("d")) {
 
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+            xForce = 1;
+            // rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
         if (Input.GetKey("space") && onGround) {
             if (longJump) {
@@ -56,6 +66,10 @@ public class move : MonoBehaviour
             rb.AddForce(0, jumpForce * Time.deltaTime, 0, ForceMode.Impulse);
             onGround = false;
         }
+
+        rb.AddForce(xForce * sidewaysForce * Time.deltaTime, 0, zForce * forwardForce * Time.deltaTime, ForceMode.VelocityChange);
+
+
         if (rb.position.y < -1f) {
             FindObjectOfType<GameManager>().EndGame();
         }
